@@ -1,6 +1,8 @@
 from functools import wraps
 import numpy as np
 from numpy import linalg as la
+import matplotlib.pyplot as plt
+from lagrange import Interpolator
 
 
 TASKS = []
@@ -109,6 +111,25 @@ def second_task():
     print('A+', A_plus)
 
     return np.matmul(A_plus, B)
+
+
+@task(3)
+def third_task():
+    x = np.array([-3., -2., -1., 0.])
+    y = np.array([10., 20., -20., -15.])
+    inter = Interpolator(x, y)
+    new_x = np.arange(-3, 1, 0.1)
+    new_y = [inter(_) for _ in new_x]
+
+    plt.plot(x, y, 'o', new_x, new_y)
+    plt.show()
+    return inter
+
+
+@task(4)
+def fourth_task():
+    x = np.array([])
+    y = np.array([])
 
 
 def main():
