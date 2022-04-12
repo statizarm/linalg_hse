@@ -21,11 +21,11 @@ class Interpolator:
             )
 
     def _t_vect(self, t):
+        t_pow = np.arange(self._n)
+        t_1_pow = np.arange(self._n - 1, -1, -1)
         return np.matrix(
-            [
-                [(1 - t) ** (self._n -1 - i) * t ** i] for i in range(self._n)
-            ]
-        )
+            t ** t_pow * (1 - t) ** t_1_pow
+        ).transpose()
 
     def __call__(self, t):
         assert 0.0 <= t <= 1.0
