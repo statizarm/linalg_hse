@@ -28,7 +28,6 @@ class Interpolator:
         ).transpose()
 
     def __call__(self, t):
-        assert 0.0 <= t <= 1.0
         vect = self._t_vect(t)
         res = np.matmul(self._m, self._t_vect(t))
         return res

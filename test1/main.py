@@ -138,7 +138,7 @@ def fourth_task():
 
     inter = BezInterpolator(points)
 
-    t_vals = np.arange(0, 1, 0.01)
+    t_vals = np.arange(-1, 2, 0.01)
 
     new = np.empty((points.shape[0],0))
     for t in t_vals:
