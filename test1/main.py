@@ -2,7 +2,8 @@ from functools import wraps
 import numpy as np
 from numpy import linalg as la
 import matplotlib.pyplot as plt
-from lagrange import Interpolator
+from lagrange import Interpolator as LagInterpolator
+from bez import Interpolator as BezInterpolator
 
 
 TASKS = []
@@ -117,7 +118,7 @@ def second_task():
 def third_task():
     x = np.array([-3., -2., -1., 0.])
     y = np.array([10., 20., -20., -15.])
-    inter = Interpolator(x, y)
+    inter = LagInterpolator(x, y)
     new_x = np.arange(-3, 1, 0.1)
     new_y = [inter(_) for _ in new_x]
 
@@ -128,8 +129,29 @@ def third_task():
 
 @task(4)
 def fourth_task():
-    x = np.array([])
-    y = np.array([])
+    points = np.matrix(
+        [
+            [4., 6., 7., 9.],
+            [5., 4., 6., 7.],
+        ]
+    )
+
+    inter = BezInterpolator(points)
+
+    t_vals = np.arange(0, 1, 0.01)
+
+    new = np.empty((points.shape[0],0))
+    for t in t_vals:
+        new = np.concatenate((new, inter(t)), axis=1)
+    x = points.tolist()[0]
+    y = points.tolist()[1]
+
+    new_x = new.tolist()[0]
+    new_y = new.tolist()[1]
+
+    plt.plot(x, y, 'o', new_x, new_y)
+    plt.show()
+    return inter
 
 
 def main():
